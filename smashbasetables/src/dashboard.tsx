@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import TableUncontrolled from './playerListTable';
 import TableUncontrolled2 from './carpoolListTable';
+import TableUncontrolled3 from './tourneyTable';
 
 export default function Dashboard() {
   return (
@@ -25,6 +26,16 @@ export default function Dashboard() {
         </div>
       </Fragment>
 
+      <Fragment>
+        <div
+          style={{
+            background: '#f5f8ff',
+            width: '25%'
+          }}
+        >
+          <TableUncontrolled3 />
+        </div>
+      </Fragment>
       <Fragment>
         <div
           style={{

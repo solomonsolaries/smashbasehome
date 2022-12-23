@@ -5,19 +5,13 @@ import { css, jsx } from '@emotion/react';
 
 import Avatar from '@atlaskit/avatar';
 import { token } from '@atlaskit/tokens';
+import { tourneys } from './tourneys';
 
-import DropdownMenu, {
-  DropdownItem,
-  DropdownItemGroup,
-} from '@atlaskit/dropdown-menu';
-
-import { carpools } from './carpools';
-
-interface Carpools {
+interface Tourney {
   id: number;
   name: string;
-  region: string;
-  editOptions: string;
+  event: string;
+  city: string;
 }
 
 function createKey(input: string) {
@@ -42,61 +36,59 @@ const AvatarWrapper: FC = ({ children }) => (
   <div css={avatarWrapperStyles}>{children}</div>
 );
 
-export const caption = 'Carpool List';
+export const caption = 'Tournament';
 
 export const createHead = (withWidth: boolean) => {
   return {
     cells: [
       {
-        key: 'carpoolDriver',
-        content: 'Carpool Name',
+        key: 'name',
+        content: 'Tourney',
+        isSortable: true,
+        width: withWidth ? 25 : undefined,
+      },
+      {
+        key: 'event',
+        content: 'Event',
         shouldTruncate: true,
         isSortable: true,
         width: withWidth ? 15 : undefined,
       },
       {
-        key: 'editCarpool',
-        content: 'Edit Carpool',
+        key: 'city',
+        content: 'City',
         shouldTruncate: true,
         isSortable: true,
         width: withWidth ? 10 : undefined,
-      },
-      {
-        key: 'more',
-        shouldTruncate: true,
-        width: withWidth ? 10 : undefined,
-        isSortable: false,
       },
     ],
   };
 };
 
-export const carpoolHead = createHead(true);
+export const head = createHead(true);
 
-export const carpoolRows = carpools.map((carpool: Carpools, index: number) => ({
-  key: `row-${index}-${carpool.name}`,
+export const rows = tourneys.map((tourney: Tourney, index: number) => ({
+  key: `row-${index}-${tourney.name}`,
   isHighlighted: false,
   cells: [
     {
-      key: createKey(carpool.name),
+      key: createKey(tourney.name),
       content: (
         <NameWrapper>
           <AvatarWrapper>
-            <Avatar name={carpool.name} size="medium" />
+            <Avatar name={tourney.name} size="medium" />
           </AvatarWrapper>
-          <a href="https://google.com">{carpool.name}</a>
+          <a href="https://atlassian.design">{tourney.name}</a>
         </NameWrapper>
       ),
     },
     {
-      key: 'EditDropdown',
-      content: (
-        <DropdownMenu trigger="Edit">
-          <DropdownItemGroup>
-            <DropdownItem> Delete {carpool.name}</DropdownItem>
-          </DropdownItemGroup>
-        </DropdownMenu>
-      ),
+      key: createKey(tourney.event),
+      content: tourney.event,
+    },
+    {
+      key: tourney.id,
+      content: tourney.city,
     },
   ],
 }));
